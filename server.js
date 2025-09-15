@@ -13,10 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // MongoDB 연결
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB 연결 성공");
   })
@@ -36,7 +33,7 @@ app.get("/", (req, res) => {
 });
 
 // 404 에러 처리
-app.use("*", (req, res) => {
+app.use((req, res) => {
   res.status(404).json({ error: "요청한 리소스를 찾을 수 없습니다." });
 });
 
